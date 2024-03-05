@@ -1,7 +1,12 @@
-import "./App.css";
+import styles from "./App.module.css";
+import DragAndDrop from "./components/DragAndDrop";
 
-function App() {
-  return <>Hello World</>;
-}
+const App = () => {
+  return (
+    <div className={styles.layout}>
+      <DragAndDrop />
+    </div>
+  );
+};
 
 export default App;
