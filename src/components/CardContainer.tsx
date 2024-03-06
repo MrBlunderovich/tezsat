@@ -1,12 +1,12 @@
 import update from "immutability-helper";
 import type { FC, ReactNode } from "react";
+import { nanoid } from "nanoid";
 import { useCallback, useRef, useState } from "react";
-import { Card } from "./Card";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
+import { Card } from "./Card";
 import { cn } from "../utils";
 import Camera from "./svg/Camera";
-import { nanoid } from "nanoid";
 
 export type Image = {
   id: string;
@@ -39,12 +39,16 @@ export const CardContainer: FC = () => {
     };
 
     const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
-      setFiles((prevCards: Image[]) =>
+      setFiles((prevCards) =>
         update(prevCards, {
           $splice: [
+            [dragIndex, 1, prevCards[hoverIndex]],
+            [hoverIndex, 1, prevCards[dragIndex]],
+          ],
+          /* $splice: [
             [dragIndex, 1],
             [hoverIndex, 0, prevCards[dragIndex] as Image],
-          ],
+          ], */
         })
       );
     }, []);
@@ -75,7 +79,7 @@ export const CardContainer: FC = () => {
           type="file"
           onChange={handleFile}
         />
-        <ul className="grid gap-4 grid-cols-[auto,repeat(4,1fr)] relative">
+        <ul className="grid gap-4 grid-cols-[auto,repeat(4,1fr)] grid-rows-[78px_78px]">
           {/* {cards.map((card, i) => renderCard(card, i))} */}
           {Array(9)
             .fill("")
@@ -105,9 +109,9 @@ const CardCell: FC<{
   return (
     <li
       className={cn(
-        "rounded-lg w-[101px] h-20",
+        "rounded-lg w-[101px] ",
         //opacity,
-        index === 0 && "row-span-2 w-[214px] h-full"
+        index === 0 && "row-span-2 w-[211px]"
       )}
     >
       {children ? (

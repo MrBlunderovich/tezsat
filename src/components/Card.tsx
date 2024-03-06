@@ -29,7 +29,7 @@ export const Card: FC<CardProps> = ({
   isFirstCard = false,
   handleDeleteFile,
 }) => {
-  const ref = useRef<HTMLLIElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<
     DragItem,
     void,
@@ -76,11 +76,15 @@ export const Card: FC<CardProps> = ({
   const opacity = isDragging ? "opacity-0" : "opacity-100";
   drag(drop(ref));
   return (
-    <div className="[border:1px_solid_green] h-full w-full relative">
+    <div
+      className="[border:3px_solid_green] h-full w-full relative"
+      ref={ref}
+      data-handler-id={handlerId}
+    >
       <img
         className="object-cover object-center w-full h-full"
         src={URL.createObjectURL(file)}
-        alt="user submitted image"
+        alt="user-submitted image"
       />
       <button
         className="absolute flex justify-center items-center text-white w-8 h-8 top-4 right-4 bg-sky-700 rounded-full"
@@ -98,7 +102,7 @@ export const Card: FC<CardProps> = ({
         opacity,
         isFirstCard && "row-span-2 w-[214px] h-full"
       )}
-      ref={ref}
+      //ref={ref}
       data-handler-id={handlerId}
     >
       <button
