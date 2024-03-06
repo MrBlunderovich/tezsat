@@ -5,8 +5,7 @@ import Camera from "./svg/Camera";
 const CardCell: FC<{
   index: number;
   children?: ReactNode;
-  triggerFileInput: () => void;
-}> = ({ index, children, triggerFileInput }) => {
+}> = ({ index, children }) => {
   return (
     <li
       className={cn(
@@ -18,10 +17,16 @@ const CardCell: FC<{
         children
       ) : (
         <button
-          className="flex h-full w-full items-center justify-center overflow-hidden text-gray-300 transition-shadow hover:bg-gray-50 hover:shadow-button"
-          onClick={triggerFileInput}
+          type="button"
+          className="h-full w-full overflow-hidden text-gray-300 transition-shadow hover:bg-gray-50 hover:shadow-button"
+          //onClick={triggerFileInput}
         >
-          <Camera />
+          <label
+            className="flex h-full w-full items-center justify-center"
+            htmlFor="file-input"
+          >
+            <Camera />
+          </label>
         </button>
       )}
     </li>

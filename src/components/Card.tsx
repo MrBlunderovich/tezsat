@@ -89,6 +89,7 @@ export const Card: FC<CardProps> = ({
         alt="user-submitted image"
       />
       <button
+        type="button"
         className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-sky-700 text-white hover:filter"
         onClick={() => handleDeleteFile(index)}
       >

@@ -1,7 +1,7 @@
 import update from "immutability-helper";
 import type { FC } from "react";
 import { nanoid } from "nanoid";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import { Card } from "./Card";
@@ -12,12 +12,11 @@ export type Image = {
   file: File;
 };
 
-const gridTemplate = Array(9).fill("");
+const gridTemplate = Array(9).fill(null);
 
 export const CardContainer: FC = () => {
   {
     const [files, setFiles] = useState<Image[]>([]);
-    const inputRef = useRef<HTMLInputElement>(null);
 
     const handleDeleteFile = (index: number) => {
       setFiles((prev) => {
@@ -29,7 +28,6 @@ export const CardContainer: FC = () => {
 
     const handleFile = (event: React.ChangeEvent<HTMLInputElement>) => {
       const inputFiles = event.target.files;
-      console.log(inputFiles);
       if (inputFiles) {
         const newFiles = [...inputFiles].map((file) => ({
           id: nanoid(),
@@ -71,22 +69,18 @@ export const CardContainer: FC = () => {
     return (
       <DndProvider backend={HTML5Backend}>
         <input
-          ref={inputRef}
+          id="file-input"
           hidden
           accept="image/png, image/jpeg, image/jpg"
           multiple
           type="file"
           onChange={handleFile}
         />
-        <ul className="grid grid-cols-[auto,repeat(4,1fr)] grid-rows-[78px_78px] gap-4">
+        <ul className="grid grid-cols-[auto,repeat(4,1fr)] grid-rows-[78px_78px] gap-4 p-1">
           {gridTemplate.map((_, index) => {
             const file = files[index];
             return (
-              <CardCell
-                key={index}
-                index={index}
-                triggerFileInput={() => inputRef.current?.click()}
-              >
+              <CardCell key={index} index={index}>
                 {file && renderCard(file, index)}
               </CardCell>
             );

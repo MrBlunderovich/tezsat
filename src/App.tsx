@@ -8,13 +8,13 @@ const App = () => {
         <h1 className="mx-auto mb-4 max-w-[930px] text-xl font-normal text-[#333333]">
           Разместить объявление
         </h1>
-        <main className="mx-auto flex max-w-[930px] flex-col gap-4 rounded bg-white p-4 shadow-main">
+        <form className="mx-auto flex max-w-[930px] flex-col gap-4 rounded bg-white p-4 shadow-main">
           <div className="h-20 bg-gray-50" />
           <PhotoSection />
           <div className="h-60 bg-gray-50" />
           <div className="h-60 bg-gray-50" />
           <div className="h-60 bg-gray-50" />
-        </main>
+        </form>
       </div>
     </div>
   );
