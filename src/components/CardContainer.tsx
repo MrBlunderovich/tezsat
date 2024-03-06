@@ -1,17 +1,18 @@
 import update from "immutability-helper";
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 import { nanoid } from "nanoid";
 import { useCallback, useRef, useState } from "react";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import { Card } from "./Card";
-import { cn } from "../utils";
-import Camera from "./svg/Camera";
+import CardCell from "./CardCell";
 
 export type Image = {
   id: string;
   file: File;
 };
+
+const gridTemplate = Array(9).fill("");
 
 export const CardContainer: FC = () => {
   {
@@ -45,11 +46,12 @@ export const CardContainer: FC = () => {
             [dragIndex, 1, prevCards[hoverIndex]],
             [hoverIndex, 1, prevCards[dragIndex]],
           ],
+          //alternative dnd logic:
           /* $splice: [
             [dragIndex, 1],
             [hoverIndex, 0, prevCards[dragIndex] as Image],
           ], */
-        })
+        }),
       );
     }, []);
 
@@ -62,12 +64,9 @@ export const CardContainer: FC = () => {
           file={card.file}
           moveCard={moveCard}
           handleDeleteFile={handleDeleteFile}
-          isFirstCard={index === 0}
         />
       );
     }, []);
-
-    console.log(files);
 
     return (
       <DndProvider backend={HTML5Backend}>
@@ -79,51 +78,21 @@ export const CardContainer: FC = () => {
           type="file"
           onChange={handleFile}
         />
-        <ul className="grid gap-4 grid-cols-[auto,repeat(4,1fr)] grid-rows-[78px_78px]">
-          {/* {cards.map((card, i) => renderCard(card, i))} */}
-          {Array(9)
-            .fill("")
-            .map((_, index) => {
-              const file = files[index];
-              return (
-                <CardCell
-                  key={index}
-                  index={index}
-                  triggerFileInput={() => inputRef.current?.click()}
-                >
-                  {file && renderCard(file, index)}
-                </CardCell>
-              );
-            })}
+        <ul className="grid grid-cols-[auto,repeat(4,1fr)] grid-rows-[78px_78px] gap-4">
+          {gridTemplate.map((_, index) => {
+            const file = files[index];
+            return (
+              <CardCell
+                key={index}
+                index={index}
+                triggerFileInput={() => inputRef.current?.click()}
+              >
+                {file && renderCard(file, index)}
+              </CardCell>
+            );
+          })}
         </ul>
       </DndProvider>
     );
   }
-};
-
-const CardCell: FC<{
-  index: number;
-  children?: ReactNode;
-  triggerFileInput: () => void;
-}> = ({ index, children, triggerFileInput }) => {
-  return (
-    <li
-      className={cn(
-        "rounded-lg w-[101px] ",
-        //opacity,
-        index === 0 && "row-span-2 w-[211px]"
-      )}
-    >
-      {children ? (
-        children
-      ) : (
-        <button
-          className="hover:shadow-button hover:bg-gray-50 transition-shadow overflow-hidden w-full h-full flex justify-center items-center text-gray-300"
-          onClick={triggerFileInput}
-        >
-          <Camera />
-        </button>
-      )}
-    </li>
-  );
 };

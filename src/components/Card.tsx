@@ -3,15 +3,14 @@ import type { FC } from "react";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { ItemTypes } from "../itemTypes";
-import Camera from "./svg/Camera";
 import { cn } from "../utils";
+import Delete from "./svg/Delete";
 
 export interface CardProps {
   id: any;
   index: number;
   file: File;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
-  isFirstCard?: boolean;
   handleDeleteFile: (index: number) => void;
 }
 
@@ -26,7 +25,6 @@ export const Card: FC<CardProps> = ({
   index,
   file,
   moveCard,
-  isFirstCard = false,
   handleDeleteFile,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -75,45 +73,32 @@ export const Card: FC<CardProps> = ({
 
   const opacity = isDragging ? "opacity-0" : "opacity-100";
   drag(drop(ref));
+
   return (
     <div
-      className="[border:3px_solid_green] h-full w-full relative"
+      className={cn(
+        "relative flex h-full w-full cursor-grab justify-center overflow-hidden rounded-sm border border-black",
+        opacity,
+      )}
       ref={ref}
       data-handler-id={handlerId}
     >
       <img
-        className="object-cover object-center w-full h-full"
+        className="h-full w-full object-cover object-center"
         src={URL.createObjectURL(file)}
         alt="user-submitted image"
       />
       <button
-        className="absolute flex justify-center items-center text-white w-8 h-8 top-4 right-4 bg-sky-700 rounded-full"
+        className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-sky-700 text-white hover:filter"
         onClick={() => handleDeleteFile(index)}
       >
-        X
+        <Delete />
       </button>
-    </div>
-  );
-  return (
-    <li
-      className={cn(
-        //"border-black border rounded-lg p-4 w-[101px] h-20",
-        "rounded-lg w-[101px] h-20",
-        opacity,
-        isFirstCard && "row-span-2 w-[214px] h-full"
+      {index === 0 && (
+        <span className="absolute bottom-1 rounded-sm bg-[rgba(0,81,186,0.2)] px-[6px] py-1 text-white backdrop-blur-[1px]">
+          Главное фото
+        </span>
       )}
-      //ref={ref}
-      data-handler-id={handlerId}
-    >
-      <button
-        className="hover:shadow-button hover:bg-gray-50 transition-shadow overflow-hidden relative w-full h-full flex justify-center items-center text-gray-300"
-        //onClick={triggerFileInput}
-      >
-        <Camera />
-        {/* <div className="absolute inset-0 bg-gray-500 opacity-30 rounded-full scale-1 hover:scale-150" /> */}
-        {/* FIX_ME: temporary */}
-        <p className="absolute left-1 bottom-1 text-red-500">123</p>
-      </button>
-    </li>
+    </div>
   );
 };
