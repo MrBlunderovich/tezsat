@@ -9,8 +9,8 @@ const CardCell: FC<{
   return (
     <li
       className={cn(
-        "w-[101px] rounded-lg",
-        index === 0 && "row-span-2 w-[211px]",
+        "w-[101px] rounded-lg lg:w-[211px]",
+        index === 0 && "row-span-2 w-[211px] lg:row-span-1",
       )}
     >
       {children ? (
