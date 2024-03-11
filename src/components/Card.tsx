@@ -42,7 +42,7 @@ export const Card: FC<CardProps> = ({
       };
     },
 
-    hover(item: DragItem, monitor) {
+    hover(item: DragItem) {
       if (!isInline) return;
       if (!ref.current) return;
 
@@ -54,33 +54,6 @@ export const Card: FC<CardProps> = ({
         return;
       }
 
-      // Determine rectangle on screen
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      console.log({ hoverBoundingRect });
-
-      // Get vertical middle
-      const hoverMiddleX =
-        (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
-
-      // Determine mouse position
-      const clientOffset = monitor.getClientOffset();
-
-      // Get pixels to the top
-      const hoverClientX = (clientOffset as XYCoord).x - hoverBoundingRect.left;
-
-      // Only perform the move when the mouse has crossed half of the items width
-
-      // Dragging right
-      if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
-        return;
-      }
-
-      // Dragging left
-      if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
-        return;
-      }
-
-      // Time to actually perform the action
       moveCard(dragIndex, hoverIndex);
 
       // Note: we're mutating the monitor item here!
