@@ -38,21 +38,24 @@ export const CardContainer: FC = () => {
     }
   };
 
-  const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
-    setFiles((prevCards) =>
-      update(prevCards, {
-        $splice: isInline
-          ? [
-              [dragIndex, 1],
-              [hoverIndex, 0, prevCards[dragIndex] as Image],
-            ]
-          : [
-              [dragIndex, 1, prevCards[hoverIndex]],
-              [hoverIndex, 1, prevCards[dragIndex]],
-            ],
-      }),
-    );
-  }, []);
+  const moveCard = useCallback(
+    (dragIndex: number, hoverIndex: number) => {
+      setFiles((prevCards) =>
+        update(prevCards, {
+          $splice: isInline
+            ? [
+                [dragIndex, 1],
+                [hoverIndex, 0, prevCards[dragIndex]],
+              ]
+            : [
+                [dragIndex, 1, prevCards[hoverIndex]],
+                [hoverIndex, 1, prevCards[dragIndex]],
+              ],
+        }),
+      );
+    },
+    [isInline],
+  );
 
   const renderCard = useCallback((card: Image, index: number) => {
     return (

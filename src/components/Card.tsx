@@ -56,6 +56,7 @@ export const Card: FC<CardProps> = ({
 
       // Determine rectangle on screen
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      console.log({ hoverBoundingRect });
 
       // Get vertical middle
       const hoverMiddleX =
@@ -90,6 +91,7 @@ export const Card: FC<CardProps> = ({
     },
 
     drop(item: DragItem) {
+      if (isInline) return;
       if (!ref.current) {
         return;
       }
