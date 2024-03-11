@@ -1,11 +1,11 @@
 import type { Identifier } from "dnd-core";
 import type { FC } from "react";
 import { useRef } from "react";
-import { XYCoord, useDrag, useDrop } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
 import { ItemTypes } from "../itemTypes";
 import { cn } from "../utils";
 import Delete from "./svg/Delete";
-import { useMaxWidth } from "../hooks/useMaxWidth";
+//import { useMaxWidth } from "../hooks/useMaxWidth";
 
 export interface CardProps {
   id: any;
@@ -28,7 +28,7 @@ export const Card: FC<CardProps> = ({
   moveCard,
   handleDeleteFile,
 }) => {
-  const isInline = useMaxWidth(1020);
+  //const isInline = useMaxWidth(1020);
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<
     DragItem,
@@ -42,7 +42,7 @@ export const Card: FC<CardProps> = ({
       };
     },
 
-    hover(item: DragItem) {
+    /* hover(item: DragItem) {
       if (!isInline) return;
       if (!ref.current) return;
 
@@ -61,10 +61,10 @@ export const Card: FC<CardProps> = ({
       // but it's good here for the sake of performance
       // to avoid expensive index searches.
       item.index = hoverIndex;
-    },
+    }, */
 
     drop(item: DragItem) {
-      if (isInline) return;
+      //if (isInline) return;
       if (!ref.current) {
         return;
       }

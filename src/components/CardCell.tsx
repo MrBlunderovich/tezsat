@@ -19,7 +19,6 @@ const CardCell: FC<{
         <button
           type="button"
           className="h-full w-full overflow-hidden text-gray-300 transition-shadow hover:bg-gray-50 hover:shadow-button"
-          //onClick={triggerFileInput}
         >
           <label
             className="flex h-full w-full items-center justify-center"

@@ -6,7 +6,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import { Card } from "./Card";
 import CardCell from "./CardCell";
-import { useMaxWidth } from "../hooks/useMaxWidth";
+// import { useMaxWidth } from "../hooks/useMaxWidth";
 
 export type Image = {
   id: string;
@@ -17,7 +17,7 @@ const gridTemplate = Array(9).fill(null);
 
 export const CardContainer: FC = () => {
   const [files, setFiles] = useState<Image[]>([]);
-  const isInline = useMaxWidth(1020);
+  // const isInline = useMaxWidth(1020);
 
   const handleDeleteFile = (index: number) => {
     setFiles((prev) => {
@@ -42,7 +42,11 @@ export const CardContainer: FC = () => {
     (dragIndex: number, hoverIndex: number) => {
       setFiles((prevCards) =>
         update(prevCards, {
-          $splice: isInline
+          $splice: [
+            [dragIndex, 1, prevCards[hoverIndex]],
+            [hoverIndex, 1, prevCards[dragIndex]],
+          ],
+          /* $splice: isInline
             ? [
                 [dragIndex, 1],
                 [hoverIndex, 0, prevCards[dragIndex]],
@@ -50,11 +54,12 @@ export const CardContainer: FC = () => {
             : [
                 [dragIndex, 1, prevCards[hoverIndex]],
                 [hoverIndex, 1, prevCards[dragIndex]],
-              ],
+              ], */
         }),
       );
     },
-    [isInline],
+    [],
+    //[isInline],
   );
 
   const renderCard = useCallback((card: Image, index: number) => {
