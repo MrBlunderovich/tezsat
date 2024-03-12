@@ -2,6 +2,7 @@ import type { ForwardRefRenderFunction } from "react";
 import { forwardRef } from "react";
 import { cn } from "../utils";
 import Delete from "./svg/Delete";
+import { PhotoCard } from "./PhotoCard";
 
 export interface CardProps {
   index: number;
@@ -25,23 +26,11 @@ const RefCard: ForwardRefRenderFunction<HTMLDivElement, CardProps> = (
       ref={ref}
       data-handler-id={handlerId}
     >
-      <img
-        className="h-full w-full object-cover object-center"
-        src={URL.createObjectURL(file)}
-        alt="user-submitted image"
+      <PhotoCard
+        file={file}
+        index={index}
+        handleDeleteFile={handleDeleteFile}
       />
-      <button
-        type="button"
-        className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-sky-700 text-white hover:filter"
-        onClick={() => handleDeleteFile(index)}
-      >
-        <Delete />
-      </button>
-      {index === 0 && (
-        <span className="absolute bottom-1 rounded-sm bg-[rgba(0,81,186,0.2)] px-[6px] py-1 text-white backdrop-blur-[1px]">
-          Главное фото
-        </span>
-      )}
     </div>
   );
 };

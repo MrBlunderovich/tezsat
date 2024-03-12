@@ -54,16 +54,12 @@ export const ReactDNDContainer: FC<{
                 {renderCard(cell, index)}
               </CardCell>
             );
-          return <FileInputButton key={index} />;
-        })}
-        {/* {gridTemplate.map((_, index) => {
-          const file = files[index];
           return (
             <CardCell key={index} index={index}>
-              {file && renderCard(file, index)}
+              <FileInputButton />
             </CardCell>
           );
-        })} */}
+        })}
       </ul>
     </DndProvider>
   );

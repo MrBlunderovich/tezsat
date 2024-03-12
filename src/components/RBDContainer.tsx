@@ -6,7 +6,7 @@ import {
   OnDragEndResponder,
   DroppableProps,
 } from "react-beautiful-dnd";
-import RBDCard from "./RBDCard";
+import { RBDCard } from "./RBDCard";
 import { Image } from "./CardContainer";
 import { FileInputButton } from "./FileInpitButton";
 import CardCell from "./CardCell";
@@ -51,49 +51,45 @@ export const RBDContainer: FC<{
   });
 
   return (
-    <div>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="dragDrop" direction="horizontal">
-          {(provided) => (
-            <>
-              <ul
-                className="scrollbar w-full grid-cols-[repeat(9,_211px)] grid-rows-[172px] gap-4 overflow-x-auto p-1"
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {cells.map((cell, index) => {
-                  if (cell) {
-                    return (
-                      <Draggable
-                        key={cell.id}
-                        draggableId={cell.id}
-                        index={index}
-                      >
-                        {(provided) => (
-                          <CardCell index={index}>
-                            <RBDCard
-                              image={cell}
-                              index={index}
-                              handleDeleteFile={handleDeleteFile}
-                              provided={provided}
-                            />
-                          </CardCell>
-                        )}
-                      </Draggable>
-                    );
-                  }
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="dragDrop" direction="horizontal">
+        {(provided) => (
+          <>
+            <ul
+              className="scrollbar grid w-full grid-cols-[repeat(9,_211px)] grid-rows-[172px] gap-4 overflow-x-auto p-1"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {cells.map((cell, index) => {
+                if (cell) {
                   return (
-                    <CardCell key={index} index={index}>
-                      <FileInputButton />
-                    </CardCell>
+                    <Draggable
+                      key={cell.id}
+                      draggableId={cell.id}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <RBDCard
+                          image={cell}
+                          index={index}
+                          handleDeleteFile={handleDeleteFile}
+                          provided={provided}
+                        />
+                      )}
+                    </Draggable>
                   );
-                })}
-              </ul>
-              {provided.placeholder}
-            </>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </div>
+                }
+                return (
+                  <CardCell key={index} index={index}>
+                    <FileInputButton />
+                  </CardCell>
+                );
+              })}
+            </ul>
+            {provided.placeholder}
+          </>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
