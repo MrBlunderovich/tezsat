@@ -1,6 +1,5 @@
 import { FC, ReactNode } from "react";
 import { cn } from "../utils";
-import Camera from "./svg/Camera";
 
 const CardCell: FC<{
   index: number;
@@ -13,21 +12,7 @@ const CardCell: FC<{
         index === 0 && "row-span-2 w-[211px] lg:row-span-1",
       )}
     >
-      {children ? (
-        children
-      ) : (
-        <button
-          type="button"
-          className="h-full w-full overflow-hidden text-gray-300 transition-shadow hover:bg-gray-50 hover:shadow-button"
-        >
-          <label
-            className="flex h-full w-full items-center justify-center"
-            htmlFor="file-input"
-          >
-            <Camera />
-          </label>
-        </button>
-      )}
+      {children}
     </li>
   );
 };

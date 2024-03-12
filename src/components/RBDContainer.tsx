@@ -56,7 +56,7 @@ export const RBDContainer: FC<{
           {(provided) => (
             <>
               <ul
-                className="scrollbar flex h-[211px] shrink-0 gap-4 overflow-x-auto"
+                className="scrollbar grid-cols-[repeat(9,_211px)] grid-rows-[172px] gap-4 overflow-x-auto p-1"
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >

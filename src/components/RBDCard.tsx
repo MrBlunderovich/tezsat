@@ -13,7 +13,7 @@ const RBDCard: FC<{
   return (
     <div
       className={cn(
-        "relative flex h-full shrink-0 basis-[211px] cursor-grab justify-center overflow-hidden rounded-sm border border-black",
+        "relative flex h-full cursor-grab justify-center overflow-hidden rounded-sm border border-black",
       )}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
