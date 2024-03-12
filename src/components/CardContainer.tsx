@@ -1,6 +1,6 @@
 import { useState, type FC } from "react";
 import { nanoid } from "nanoid";
-import { ReactDNDContainer } from "./ReactDNDContainer";
+import { ReactDNDContainer } from "./RDNDContainer";
 import { RBDContainer } from "./RBDContainer";
 import { useMaxWidth } from "../hooks/useMaxWidth";
 

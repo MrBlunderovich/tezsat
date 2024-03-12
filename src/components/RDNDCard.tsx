@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { ItemTypes } from "../itemTypes";
 import { Card } from "./Card";
-//import { useMaxWidth } from "../hooks/useMaxWidth";
 
 export interface RDNDCardProps {
   id: any;
@@ -27,7 +26,6 @@ export const RDNDCard: FC<RDNDCardProps> = ({
   moveCard,
   handleDeleteFile,
 }) => {
-  //const isInline = useMaxWidth(1020);
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<
     DragItem,
@@ -42,7 +40,6 @@ export const RDNDCard: FC<RDNDCardProps> = ({
     },
 
     drop(item: DragItem) {
-      //if (isInline) return;
       if (!ref.current) {
         return;
       }

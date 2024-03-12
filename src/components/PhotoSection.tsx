@@ -5,7 +5,6 @@ const PhotoSection: FC = () => {
   return (
     <div className="p-8">
       <div className="flex flex-wrap justify-between gap-2">
-        {/* <div className="scrollbar flex flex-wrap justify-between gap-2 overflow-x-auto"> */}
         <p className="whitespace-nowrap">
           Загрузите фото<span className="ml-1 text-red-600">*</span>
         </p>
