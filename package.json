@@ -14,6 +14,7 @@
     "immutability-helper": "^3.1.1",
     "nanoid": "^5.0.6",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
+    "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",

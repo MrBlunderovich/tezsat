@@ -1,33 +1,27 @@
-import type { ForwardRefRenderFunction } from "react";
-import { forwardRef } from "react";
+import { FC } from "react";
 import { cn } from "../utils";
+import { Image } from "./CardContainer";
 import Delete from "./svg/Delete";
+import { DraggableProvided } from "react-beautiful-dnd";
 
-export interface CardProps {
+const RBDCard: FC<{
+  image: Image;
   index: number;
-  file: File;
-  moveCard: (dragIndex: number, hoverIndex: number) => void;
   handleDeleteFile: (index: number) => void;
-  handlerId?: any;
-  opacity: string;
-}
-
-const RefCard: ForwardRefRenderFunction<HTMLDivElement, CardProps> = (
-  { index, file, handleDeleteFile, handlerId, opacity },
-  ref,
-) => {
+  provided: DraggableProvided;
+}> = ({ image, index, handleDeleteFile, provided }) => {
   return (
     <div
       className={cn(
-        "relative flex h-full w-full cursor-grab justify-center overflow-hidden rounded-sm border border-black",
-        opacity,
+        "relative flex h-full shrink-0 basis-[211px] cursor-grab justify-center overflow-hidden rounded-sm border border-black",
       )}
-      ref={ref}
-      data-handler-id={handlerId}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+      ref={provided.innerRef}
     >
       <img
         className="h-full w-full object-cover object-center"
-        src={URL.createObjectURL(file)}
+        src={URL.createObjectURL(image.file)}
         alt="user-submitted image"
       />
       <button
@@ -46,4 +40,4 @@ const RefCard: ForwardRefRenderFunction<HTMLDivElement, CardProps> = (
   );
 };
 
-export const Card = forwardRef<HTMLDivElement, CardProps>(RefCard);
+export default RBDCard;
