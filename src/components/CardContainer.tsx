@@ -1,6 +1,6 @@
 import { useState, type FC } from "react";
 import { nanoid } from "nanoid";
-import { ReactDNDContainer } from "./RDNDContainer";
+import { RDNDContainer } from "./RDNDContainer";
 import { RBDContainer } from "./RBDContainer";
 import { useMaxWidth } from "../hooks/useMaxWidth";
 
@@ -52,7 +52,7 @@ export const CardContainer: FC = () => {
           setFiles={setFiles}
         />
       ) : (
-        <ReactDNDContainer
+        <RDNDContainer
           files={files}
           gridTemplate={gridTemplate}
           handleDeleteFile={handleDeleteFile}

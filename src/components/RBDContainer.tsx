@@ -9,7 +9,6 @@ import {
 import { RBDCard } from "./RBDCard";
 import { Image } from "./CardContainer";
 import { FileInputButton } from "./FileInpitButton";
-import CardCell from "./CardCell";
 
 //react StrictMode fix:
 export const Droppable = ({ children, ...props }: DroppableProps) => {
@@ -56,7 +55,7 @@ export const RBDContainer: FC<{
         {(provided) => (
           <>
             <ul
-              className="scrollbar grid w-full grid-cols-[repeat(9,_211px)] grid-rows-[172px] gap-4 overflow-x-auto p-1"
+              className="scrollbar grid h-[176px] w-full grid-cols-[repeat(9,_211px)] grid-rows-[1fr] gap-2 overflow-x-auto p-1"
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
@@ -79,11 +78,7 @@ export const RBDContainer: FC<{
                     </Draggable>
                   );
                 }
-                return (
-                  <CardCell key={index} index={index}>
-                    <FileInputButton />
-                  </CardCell>
-                );
+                return <FileInputButton key={index} />;
               })}
             </ul>
             {provided.placeholder}

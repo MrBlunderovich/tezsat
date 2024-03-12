@@ -3,7 +3,8 @@ import type { FC } from "react";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { ItemTypes } from "../itemTypes";
-import { Card } from "./Card";
+import { PhotoCard } from "./PhotoCard";
+import { cn } from "../utils";
 
 export interface RDNDCardProps {
   id: any;
@@ -26,7 +27,7 @@ export const RDNDCard: FC<RDNDCardProps> = ({
   moveCard,
   handleDeleteFile,
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLLIElement>(null);
   const [{ handlerId }, drop] = useDrop<
     DragItem,
     void,
@@ -75,14 +76,20 @@ export const RDNDCard: FC<RDNDCardProps> = ({
   drag(drop(ref));
 
   return (
-    <Card
+    <li
+      className={cn(
+        "relative flex h-full w-full cursor-grab justify-center overflow-hidden rounded-sm border border-black",
+        index === 0 && "row-span-2",
+        opacity,
+      )}
       ref={ref}
-      index={index}
-      file={file}
-      moveCard={moveCard}
-      handleDeleteFile={handleDeleteFile}
-      handlerId={handlerId}
-      opacity={opacity}
-    />
+      data-handler-id={handlerId}
+    >
+      <PhotoCard
+        file={file}
+        index={index}
+        handleDeleteFile={handleDeleteFile}
+      />
+    </li>
   );
 };
