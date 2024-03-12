@@ -9,6 +9,7 @@ import {
 import RBDCard from "./RBDCard";
 import { Image } from "./CardContainer";
 import { FileInputButton } from "./FileInpitButton";
+import CardCell from "./CardCell";
 
 //react StrictMode fix:
 export const Droppable = ({ children, ...props }: DroppableProps) => {
@@ -56,12 +57,12 @@ export const RBDContainer: FC<{
           {(provided) => (
             <>
               <ul
-                className="scrollbar grid-cols-[repeat(9,_211px)] grid-rows-[172px] gap-4 overflow-x-auto p-1"
+                className="scrollbar w-full grid-cols-[repeat(9,_211px)] grid-rows-[172px] gap-4 overflow-x-auto p-1"
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
                 {cells.map((cell, index) => {
-                  if (cell)
+                  if (cell) {
                     return (
                       <Draggable
                         key={cell.id}
@@ -69,16 +70,23 @@ export const RBDContainer: FC<{
                         index={index}
                       >
                         {(provided) => (
-                          <RBDCard
-                            image={cell}
-                            index={index}
-                            handleDeleteFile={handleDeleteFile}
-                            provided={provided}
-                          />
+                          <CardCell index={index}>
+                            <RBDCard
+                              image={cell}
+                              index={index}
+                              handleDeleteFile={handleDeleteFile}
+                              provided={provided}
+                            />
+                          </CardCell>
                         )}
                       </Draggable>
                     );
-                  return <FileInputButton key={index} />;
+                  }
+                  return (
+                    <CardCell key={index} index={index}>
+                      <FileInputButton />
+                    </CardCell>
+                  );
                 })}
               </ul>
               {provided.placeholder}
